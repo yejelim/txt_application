@@ -3,22 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>메모장</title>
+    <style>
+        body {
+            background-color: lightyellow;
+        }
+        input[type="text"] {
+            height: 40px; /* 기존 높이의 두 배로 설정합니다. */
+            font-size: 16px;
+        }
+        input[type="submit"].add {
+            background-color: skyblue;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        input[type="submit"].edit {
+            background-color: lightgreen;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        input[type="submit"].delete {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>메모장</h1>
     <form action="{{ url_for('add_note') }}" method="post">
         <input type="text" name="note" placeholder="메모를 입력하세요">
-        <input type="submit" value="추가">
+        <input type="submit" value="추가" class="add">
     </form>
     <ul>
         {% for note in notes %}
             <li>
                 <strong>{{ note.timestamp }}</strong>: {{ note.text }}
                 <form action="{{ url_for('delete_note', note_id=loop.index0) }}" method="post" style="display:inline;">
-                    <input type="submit" value="삭제">
+                    <input type="submit" value="삭제" class="delete">
                 </form>
                 <form action="{{ url_for('edit_note', note_id=loop.index0) }}" method="get" style="display:inline;">
-                    <input type="submit" value="수정">
+                    <input type="submit" value="수정" class="edit">
                 </form>
             </li>
         {% endfor %}
